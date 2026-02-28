@@ -1,23 +1,23 @@
 import { useState } from "react";
 
-function AddItemForm({ onAddItem, disabled }) {
+function AddItemForm({ onAddItem, disabled, placeholder }) {
   const [itemName, setItemName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!disabled) {
+    if (!disabled && itemName.trim()) {
       onAddItem(itemName);
       setItemName("");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-item-form">
       <input
         type="text"
         value={itemName}
         onChange={(e) => setItemName(e.target.value)}
-        placeholder="Enter item here to compare"
+        placeholder={placeholder || "Enter an item..."}
         disabled={disabled}
       />
       <button type="submit" disabled={!itemName.trim() || disabled}>

@@ -1,9 +1,9 @@
 {
-  "name": "vite-version",
+  "name": "parachute-flower",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://kheng2023.github.io/priority-matrix/",
+  "homepage": "https://kheng2023.github.io/parachute-flower/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
