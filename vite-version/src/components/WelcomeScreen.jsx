@@ -1,10 +1,11 @@
+import { Flower2, Lock, Printer, Timer } from "lucide-react";
 import PETALS from "../data/petals";
 
 function WelcomeScreen({ onStart, hasExistingProgress }) {
   return (
     <div className="welcome-screen">
       <div className="welcome-hero">
-        <div className="welcome-flower-icon">🌸</div>
+        <div className="welcome-flower-icon"><Flower2 /></div>
         <h1>The Flower Exercise</h1>
         <p className="welcome-subtitle">
           From <em>What Color Is Your Parachute?</em> by Richard N. Bolles
@@ -26,7 +27,7 @@ function WelcomeScreen({ onStart, hasExistingProgress }) {
             className="petal-preview-card"
             style={{ borderLeftColor: petal.color }}
           >
-            <span className="petal-preview-icon">{petal.icon}</span>
+            <span className="petal-preview-icon"><petal.icon color={petal.color} /></span>
             <div>
               <strong>{petal.name}</strong>
               <p>{petal.subtitle}</p>
@@ -37,21 +38,21 @@ function WelcomeScreen({ onStart, hasExistingProgress }) {
 
       <div className="welcome-info">
         <div className="info-card">
-          <span className="info-icon">⏱️</span>
+          <span className="info-icon"><Timer /></span>
           <div>
             <strong>About 45–60 minutes</strong>
             <p>Your progress is saved automatically</p>
           </div>
         </div>
         <div className="info-card">
-          <span className="info-icon">🔒</span>
+          <span className="info-icon"><Lock /></span>
           <div>
             <strong>Private & local</strong>
             <p>All data stays in your browser</p>
           </div>
         </div>
         <div className="info-card">
-          <span className="info-icon">🖨️</span>
+          <span className="info-icon"><Printer /></span>
           <div>
             <strong>Printable flower</strong>
             <p>Get a visual summary you can keep</p>

@@ -914,3 +914,14 @@ select:focus {
     align-items: center;
   }
 }
+
+/* Icons (lucide) scale with the surrounding text */
+.lucide {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+}
+
+.welcome-flower-icon {
+  color: #535bf2;
+}

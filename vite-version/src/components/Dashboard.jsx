@@ -1,3 +1,4 @@
+import { Circle, CircleCheck, CircleDashed, Flower2, PartyPopper } from "lucide-react";
 import PETALS from "../data/petals";
 
 function Dashboard({ petalStates, onSelectPetal, onViewFlower }) {
@@ -10,7 +11,7 @@ function Dashboard({ petalStates, onSelectPetal, onViewFlower }) {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>🌸 My Flower Exercise</h1>
+        <h1><Flower2 /> My Flower Exercise</h1>
         <p className="dashboard-subtitle">
           Complete each petal to build your career flower
         </p>
@@ -33,11 +34,13 @@ function Dashboard({ petalStates, onSelectPetal, onViewFlower }) {
           const state = petalStates[petal.id];
           const status = state?.status || "not-started";
           const statusLabel =
-            status === "completed"
-              ? "✅ Completed"
-              : status === "in-progress"
-              ? "🔄 In Progress"
-              : "○ Not Started";
+            status === "completed" ? (
+              <><CircleCheck /> Completed</>
+            ) : status === "in-progress" ? (
+              <><CircleDashed /> In Progress</>
+            ) : (
+              <><Circle /> Not Started</>
+            );
 
           return (
             <div
@@ -47,7 +50,7 @@ function Dashboard({ petalStates, onSelectPetal, onViewFlower }) {
               onClick={() => onSelectPetal(petal.id)}
             >
               <div className="petal-card-header">
-                <span className="petal-card-icon">{petal.icon}</span>
+                <span className="petal-card-icon"><petal.icon color={petal.color} /></span>
                 <span className="petal-card-status">{statusLabel}</span>
               </div>
               <h3>{petal.name}</h3>
@@ -85,10 +88,10 @@ function Dashboard({ petalStates, onSelectPetal, onViewFlower }) {
 
       {allComplete && (
         <div className="flower-ready-banner">
-          <h2>🎉 All petals complete!</h2>
+          <h2><PartyPopper /> All petals complete!</h2>
           <p>Your flower is ready to view and print.</p>
           <button className="btn-primary btn-large" onClick={onViewFlower}>
-            View My Flower 🌸
+            View My Flower <Flower2 />
           </button>
         </div>
       )}

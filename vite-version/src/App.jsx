@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import "./App.css";
 import PETALS from "./data/petals";
 import {
@@ -20,7 +20,7 @@ function App() {
   // Derived values
   const appPhase = state?.appPhase || "welcome";
   const activePetalId = state?.activePetalId || null;
-  const petalStates = state?.petals || {};
+  const petalStates = useMemo(() => state?.petals || {}, [state?.petals]);
   const hasExistingProgress =
     state !== null && state.appPhase !== "welcome";
 

@@ -1,3 +1,4 @@
+import { Flower2 } from "lucide-react";
 import PETALS from "../data/petals";
 
 /**
@@ -6,7 +7,7 @@ import PETALS from "../data/petals";
  * showing the top ranked items from each petal exercise.
  */
 function FlowerDiagram({ petalStates }) {
-  const size = 800;
+  const size = 480;
   const cx = size / 2;
   const cy = size / 2;
   const petalLength = 210;
@@ -69,16 +70,12 @@ function FlowerDiagram({ petalStates }) {
 
       {/* Petals */}
       {PETALS.map((petal, i) => {
-        const angle = angleStep * i - 90; // Start from top
-        const rad = (angle * Math.PI) / 180;
-        const state = petalStates[petal.id];
-        const textLines = getPetalText(petal, state);
-        const isComplete = state?.status === "completed";
+        const isComplete = petalStates[petal.id]?.status === "completed";
 
         return (
           <g
             key={petal.id}
-            transform={`translate(${cx}, ${cy}) rotate(${angle + 90})`}
+            transform={`translate(${cx}, ${cy}) rotate(${angleStep * i})`}
           >
             {/* Petal shape */}
             <path
@@ -88,34 +85,44 @@ function FlowerDiagram({ petalStates }) {
               strokeWidth="2"
               opacity={isComplete ? 0.85 : 0.5}
             />
+          </g>
+        );
+      })}
 
-            {/* Petal label and content */}
-            <g transform={`rotate(-${angle + 90})`}>
-              {/* Petal name at the outer edge */}
+      {/* Petal labels, drawn after every petal so a neighbouring petal never
+          covers them. Each label moves out along its petal, then undoes the
+          petal's rotation there so the text stays upright. */}
+      {PETALS.map((petal, i) => {
+        const rotation = angleStep * i;
+        const state = petalStates[petal.id];
+        const textLines = getPetalText(petal, state);
+        const isComplete = state?.status === "completed";
+
+        return (
+          <g
+            key={petal.id}
+            transform={`translate(${cx}, ${cy}) rotate(${rotation}) translate(0, ${-petalLength * 0.72}) rotate(${-rotation})`}
+          >
+            <text
+              y={-30}
+              textAnchor="middle"
+              fontSize="11"
+              fontWeight="bold"
+              fill={isComplete ? "#1f2937" : petal.color}
+            >
+              {petal.name}
+            </text>
+            {textLines.map((line, li) => (
               <text
-                y={-petalLength * 0.82}
+                key={li}
+                y={-14 + li * 13}
                 textAnchor="middle"
-                fontSize="11"
-                fontWeight="bold"
-                fill={isComplete ? "#fff" : petal.color}
-                style={{ textShadow: isComplete ? "0 1px 2px rgba(0,0,0,0.3)" : "none" }}
+                fontSize="9"
+                fill={isComplete ? "#1f2937" : "#888"}
               >
-                {petal.icon} {petal.name}
+                {truncate(line, 26)}
               </text>
-              {/* Ranked items */}
-              {textLines.map((line, li) => (
-                <text
-                  key={li}
-                  y={-petalLength * 0.7 + li * 14}
-                  textAnchor="middle"
-                  fontSize="9"
-                  fill={isComplete ? "#fff" : "#888"}
-                  style={{ textShadow: isComplete ? "0 1px 2px rgba(0,0,0,0.3)" : "none" }}
-                >
-                  {truncate(line, 26)}
-                </text>
-              ))}
-            </g>
+            ))}
           </g>
         );
       })}
@@ -125,16 +132,7 @@ function FlowerDiagram({ petalStates }) {
       <circle cx={cx} cy={cy} r={centerRadius - 4} fill="#f8f9ff" stroke="none" />
 
       {/* Center text */}
-      <text
-        x={cx}
-        y={cy - 20}
-        textAnchor="middle"
-        fontSize="16"
-        fontWeight="bold"
-        fill="#535bf2"
-      >
-        🌸
-      </text>
+      <Flower2 x={cx - 9} y={cy - 36} style={{ width: 18, height: 18 }} color="#535bf2" />
       <text
         x={cx}
         y={cy + 2}

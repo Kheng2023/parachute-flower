@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getPetalById, getComparisonCount } from "../data/petals";
 import { createPetalState } from "../hooks/useLocalStorage";
 import AddItemForm from "./AddItemForm";
@@ -14,7 +14,7 @@ function PetalExercise({ petalId, petalState, onUpdate, onBack }) {
     if (!petalState) {
       onUpdate(createPetalState(petalConfig));
     }
-  }, [petalId]);
+  }, [petalState, petalConfig, onUpdate]);
 
   if (!petalConfig || !petalState) return null;
 
@@ -177,7 +177,7 @@ function PetalExercise({ petalId, petalState, onUpdate, onBack }) {
           ← Back to Dashboard
         </button>
         <div className="petal-exercise-title">
-          <span className="petal-exercise-icon">{petalConfig.icon}</span>
+          <span className="petal-exercise-icon"><petalConfig.icon color={petalConfig.color} /></span>
           <div>
             <h2 style={{ color: petalConfig.color }}>{petalConfig.name}</h2>
             <p>{petalConfig.subtitle}</p>
@@ -307,7 +307,7 @@ function PetalExercise({ petalId, petalState, onUpdate, onBack }) {
       {step === "rank" && (
         <div className="petal-rank-step">
           <h3 style={{ color: petalConfig.color }}>
-            {petalConfig.icon} {petalConfig.name} — Your Ranking
+            <petalConfig.icon /> {petalConfig.name} — Your Ranking
           </h3>
           <RankingGrid items={rankedItems} comparisons={comparisons} />
 
