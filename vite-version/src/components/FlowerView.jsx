@@ -1,3 +1,4 @@
+import { Flower2, Printer, Trash2, TriangleAlert } from "lucide-react";
 import PETALS from "../data/petals";
 import FlowerDiagram from "./FlowerDiagram";
 
@@ -17,10 +18,10 @@ function FlowerView({ petalStates, onBack, onReset }) {
         <button className="btn-back" onClick={onBack}>
           ← Back to Dashboard
         </button>
-        <h1>🌸 My Career Flower</h1>
+        <h1><Flower2 /> My Career Flower</h1>
         {!allComplete && (
           <p className="incomplete-warning">
-            ⚠️ {PETALS.length - completedCount} petal(s) not yet completed.
+            <TriangleAlert /> {PETALS.length - completedCount} petal(s) not yet completed.
             Complete them all for your full flower.
           </p>
         )}
@@ -43,7 +44,7 @@ function FlowerView({ petalStates, onBack, onReset }) {
                   style={{ borderLeftColor: petal.color, opacity: 0.5 }}
                 >
                   <h3>
-                    {petal.icon} {petal.name}
+                    <petal.icon /> {petal.name}
                   </h3>
                   <p className="not-completed">Not yet completed</p>
                 </div>
@@ -58,7 +59,7 @@ function FlowerView({ petalStates, onBack, onReset }) {
                   style={{ borderLeftColor: petal.color }}
                 >
                   <h3>
-                    {petal.icon} {petal.name}
+                    <petal.icon /> {petal.name}
                   </h3>
                   <dl className="money-details">
                     {petal.fields.map((field) =>
@@ -81,7 +82,7 @@ function FlowerView({ petalStates, onBack, onReset }) {
                 style={{ borderLeftColor: petal.color }}
               >
                 <h3>
-                  {petal.icon} {petal.name}
+                  <petal.icon /> {petal.name}
                 </h3>
                 {state.rankedResults?.length > 0 ? (
                   <ol className="detail-ranking">
@@ -106,13 +107,13 @@ function FlowerView({ petalStates, onBack, onReset }) {
 
       <div className="flower-actions no-print">
         <button className="btn-primary btn-large" onClick={handlePrint}>
-          🖨️ Print My Flower
+          <Printer /> Print My Flower
         </button>
         <button className="btn-secondary" onClick={onBack}>
           ← Back to Dashboard
         </button>
         <button className="btn-danger" onClick={onReset}>
-          🗑️ Start Over
+          <Trash2 /> Start Over
         </button>
       </div>
 
@@ -131,7 +132,7 @@ function FlowerView({ petalStates, onBack, onReset }) {
             return (
               <div key={petal.id} className="print-petal-detail">
                 <h3>
-                  {petal.icon} {petal.name}
+                  <petal.icon /> {petal.name}
                 </h3>
                 {petal.type === "input" && state.fields ? (
                   <ul>

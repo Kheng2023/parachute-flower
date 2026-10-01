@@ -31,7 +31,7 @@ function MoneyPetalForm({ petalConfig, petalState, onUpdate, onBack }) {
           ← Back to Dashboard
         </button>
         <div className="petal-exercise-title">
-          <span className="petal-exercise-icon">{petalConfig.icon}</span>
+          <span className="petal-exercise-icon"><petalConfig.icon color={petalConfig.color} /></span>
           <div>
             <h2 style={{ color: petalConfig.color }}>{petalConfig.name}</h2>
             <p>{petalConfig.subtitle}</p>
